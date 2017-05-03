@@ -1,7 +1,7 @@
 "use strict";
 
 const ioredis = require('ioredis');
-const ReturnValue = require("koc-common-return");
+const KOCReturn = require("koc-common-return");
 
 let clientList = {};
 
@@ -28,7 +28,7 @@ module.exports = {
   //开户事务
   ///////////////////////////
   Multi: (db) => {
-    const retValue = ReturnValue();
+    const retValue = KOCReturn.Value();
     db = clientList[db];
     if (!db) {
       retValue.hasError = true;
@@ -44,7 +44,7 @@ module.exports = {
   Exec: (conn) => {
     return new Promise((resolve) => {
       conn.exec(function (err) {
-        const retValue = ReturnValue();
+        const retValue = KOCReturn.Value();
         if (err) {
           retValue.hasError = true;
           retValue.message = err;
