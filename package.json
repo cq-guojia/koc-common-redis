@@ -1,0 +1,16 @@
+{
+  "name": "koc-common-redis",
+  "version": "1.0.0",
+  "description": "koc-common-redis",
+  "main": "index.js",
+  "dependencies": {
+    "koc-common-return": "^1.0.0",
+    "ioredis": "^2.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cq-guojia/koc-common-redis.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
