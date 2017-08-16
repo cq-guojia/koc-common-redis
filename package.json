@@ -4,7 +4,7 @@
   "description": "koc-common-redis",
   "main": "index.js",
   "dependencies": {
-    "koc-common-return": "^1.0.2",
+    "koc-common-return": "^1.0.4",
     "ioredis": "^2.5.0"
   },
   "repository": {
