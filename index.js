@@ -1,6 +1,6 @@
 "use strict";
 
-const ioredis = require('ioredis');
+const IORedis = require('ioredis');
 const KOCReturn = require("koc-common-return");
 
 let clientList = {};
@@ -18,7 +18,7 @@ module.exports = {
     }
     dblist.forEach((ThisValue) => {
       try {
-        clientList[ThisValue.name] = new ioredis(ThisValue);
+        clientList[ThisValue.name] = new IORedis(ThisValue);
       } catch (ex) {
       }
     });
