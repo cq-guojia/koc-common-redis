@@ -1,11 +1,11 @@
 {
   "name": "koc-common-redis",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "koc-common-redis",
   "main": "index.js",
   "dependencies": {
-    "ioredis": "^4.6.2",
-    "koc-common-return": "^1.0.19"
+    "ioredis": "^4.17.3",
+    "koc-common-return": "^2.0.8"
   },
   "repository": {
     "type": "git",

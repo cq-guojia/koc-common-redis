@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
-const IORedis = require('ioredis');
-const KOCReturn = require("koc-common-return");
+const IORedis = require('ioredis')
+const KOCReturn = require('koc-common-return/index')
 
-let clientList = {};
+let clientList = {}
 
 module.exports = {
   ///////////////////////////
@@ -11,32 +11,32 @@ module.exports = {
   ///////////////////////////
   Init: (dblist) => {
     if (!dblist) {
-      return;
+      return
     }
     if (!(dblist instanceof Array)) {
-      dblist = [dblist];
+      dblist = [dblist]
     }
     dblist.forEach((ThisValue) => {
       try {
-        clientList[ThisValue.name] = new IORedis(ThisValue);
+        clientList[ThisValue.name] = new IORedis(ThisValue)
       } catch (ex) {
       }
-    });
-    return clientList;
+    })
+    return clientList
   },
   ///////////////////////////
   //开户事务
   ///////////////////////////
   Multi: (db) => {
-    const retValue = KOCReturn.Value();
-    db = clientList[db];
+    const retValue = KOCReturn.Value()
+    db = clientList[db]
     if (!db) {
-      retValue.hasError = true;
-      retValue.message = "db null";
+      retValue.hasError = true
+      retValue.message = 'db null'
     } else {
-      retValue.returnObject = db.multi();
+      retValue.returnObject = db.multi()
     }
-    return retValue;
+    return retValue
   },
   ///////////////////////////
   //提交事务
@@ -44,31 +44,31 @@ module.exports = {
   Exec: (conn) => {
     return new Promise((resolve) => {
       conn.exec(function (err) {
-        const retValue = KOCReturn.Value();
+        const retValue = KOCReturn.Value()
         if (err) {
-          retValue.hasError = true;
-          retValue.message = err;
+          retValue.hasError = true
+          retValue.message = err
         }
-        resolve(retValue);
-      });
-    });
+        resolve(retValue)
+      })
+    })
   },
   ///////////////////////////
   //撤销事务
   ///////////////////////////
   Discard: function (conn) {
     if (conn) {
-      conn.discard();
+      conn.discard()
     }
   },
   ///////////////////////////
   //撤销监听
   ///////////////////////////
   Unwatch: function (db) {
-    db = clientList[db];
+    db = clientList[db]
     if (!db) {
-      return;
+      return
     }
-    db.unwatch();
+    db.unwatch()
   }
-};
+}
