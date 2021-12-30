@@ -25,6 +25,19 @@ module.exports = {
     return clientList
   },
   ///////////////////////////
+  //初始化
+  ///////////////////////////
+  InitCluster: (dblist) => {
+    if (!dblist) return
+    if (!Array.isArray(dblist)) dblist = [dblist]
+    dblist.forEach((thisValue) => {
+      try {
+        clientList[thisValue.name] = new IORedis.Cluster(thisValue.nodes, thisValue.options)
+      } catch (ex) {}
+    })
+    return clientList
+  },
+  ///////////////////////////
   //开户事务
   ///////////////////////////
   Multi: (db) => {
