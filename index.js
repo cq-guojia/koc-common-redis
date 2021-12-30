@@ -10,30 +10,22 @@ module.exports = {
   //初始化
   ///////////////////////////
   Init: (dblist) => {
-    if (!dblist) {
-      return
-    }
-    if (!(dblist instanceof Array)) {
-      dblist = [dblist]
-    }
-    dblist.forEach((ThisValue) => {
-      try {
-        clientList[ThisValue.name] = new IORedis(ThisValue)
-      } catch (ex) {
-      }
-    })
-    return clientList
-  },
-  ///////////////////////////
-  //初始化
-  ///////////////////////////
-  InitCluster: (dblist) => {
     if (!dblist) return
     if (!Array.isArray(dblist)) dblist = [dblist]
     dblist.forEach((thisValue) => {
       try {
-        clientList[thisValue.name] = new IORedis.Cluster(thisValue.nodes, thisValue.options)
-      } catch (ex) {}
+        switch (thisValue.mode) {
+          case 'cluster':
+            clientList[thisValue.name] = new IORedis.Cluster(thisValue.nodes, thisValue.options)
+            break
+          case 'nomarl':
+          default:
+            clientList[thisValue.name] = new IORedis(thisValue)
+        }
+
+      } catch (ex) {
+        console.error(ex)
+      }
     })
     return clientList
   },
